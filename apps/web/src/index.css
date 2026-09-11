@@ -1,0 +1,39 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-canvas: #0a0f0c; /* fundo quase preto, com fundo esverdeado */
+  --color-canvas-tint: #0f1a14; /* parada do gradiente radial */
+  --color-card: #2e2e2e;
+  --color-field: #3a3a3a; /* inputs e tiles sociais */
+  --color-line: #454545;
+
+  --color-ink: #ffffff;
+  --color-ink-soft: #c9c9c9;
+  --color-ink-muted: #8b8b8b;
+
+  --color-brand: #2fa84f;
+  --color-brand-hover: #268c42;
+  --color-brand-ink: #0a0f0c; /* texto escuro sobre o botão verde */
+
+  --color-glyph: #1c3a2a; /* elos do fundo, baixo contraste */
+
+  --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+  --radius-card: 16px;
+  --radius-field: 6px;
+  --shadow-card: 0 24px 60px -12px rgb(0 0 0 / 0.55);
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+  body {
+    margin: 0;
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+}
