@@ -12,8 +12,8 @@ export type ButtonProps = ComponentPropsWithRef<'button'> & {
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary: 'bg-brand text-brand-ink hover:bg-brand-hover disabled:opacity-60',
-  secondary: 'bg-field text-ink border border-line hover:bg-line disabled:opacity-60',
-  ghost: 'bg-transparent text-ink hover:bg-field disabled:opacity-60',
+  secondary: 'bg-field text-field-ink hover:opacity-90 disabled:opacity-60',
+  ghost: 'bg-transparent text-ink hover:bg-card disabled:opacity-60',
 }
 
 export function Button({
@@ -30,7 +30,7 @@ export function Button({
     <button
       type={type}
       className={cn(
-        'inline-flex items-center justify-center gap-2 rounded-field px-4 py-2 text-sm font-medium transition-colors disabled:cursor-not-allowed',
+        'inline-flex items-center justify-center gap-2 rounded-button px-4 py-3 text-body font-semibold transition-colors disabled:cursor-not-allowed',
         variantClasses[variant],
         fullWidth && 'w-full',
         className,

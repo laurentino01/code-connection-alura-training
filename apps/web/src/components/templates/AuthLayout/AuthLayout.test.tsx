@@ -12,13 +12,13 @@ describe('AuthLayout', () => {
     expect(screen.getByText('Conteúdo')).toBeInTheDocument()
   })
 
-  it('renders three decorative, hidden chain glyphs', () => {
+  it('renders two decorative, hidden chain glyphs', () => {
     const { container } = render(
       <AuthLayout>
         <p>Conteúdo</p>
       </AuthLayout>,
     )
     const glyphs = container.querySelectorAll('svg[aria-hidden="true"]')
-    expect(glyphs).toHaveLength(3)
+    expect(glyphs).toHaveLength(2)
   })
 })

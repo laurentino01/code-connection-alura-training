@@ -17,16 +17,16 @@ export function FormField({ id, label, hint, error, className, ...rest }: FormFi
   const describedBy = [hintId, errorId].filter(Boolean).join(' ') || undefined
 
   return (
-    <div className={cn('flex flex-col gap-1', className)}>
+    <div className={cn('flex flex-col gap-2', className)}>
       <Label htmlFor={id}>{label}</Label>
       <Input id={id} invalid={!!error} aria-describedby={describedBy} {...rest} />
       {hint && (
-        <Text as="span" tone="muted" size="xs" id={hintId}>
+        <Text as="span" tone="muted" size="label" id={hintId}>
           {hint}
         </Text>
       )}
       {error && (
-        <Text as="span" tone="muted" size="xs" id={errorId} className="text-red-400">
+        <Text as="span" tone="muted" size="label" id={errorId} className="text-red-400">
           {error}
         </Text>
       )}

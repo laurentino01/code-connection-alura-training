@@ -5,6 +5,8 @@ export type SocialButtonProps = {
   iconSrc: string
   label: string
   iconAlt?: string
+  iconWidth?: number
+  iconHeight?: number
   onClick?: () => void
   disabled?: boolean
   className?: string
@@ -14,6 +16,8 @@ export function SocialButton({
   iconSrc,
   label,
   iconAlt = '',
+  iconWidth = 32,
+  iconHeight = 32,
   onClick,
   disabled,
   className,
@@ -29,10 +33,8 @@ export function SocialButton({
         className,
       )}
     >
-      <span className="flex h-10 w-10 items-center justify-center rounded-full border border-line bg-field">
-        <img src={iconSrc} alt={iconAlt} className="h-5 w-5" />
-      </span>
-      <Text as="span" tone="muted" size="xs">
+      <img src={iconSrc} alt={iconAlt} width={iconWidth} height={iconHeight} />
+      <Text as="span" tone="default" size="label">
         {label}
       </Text>
     </button>

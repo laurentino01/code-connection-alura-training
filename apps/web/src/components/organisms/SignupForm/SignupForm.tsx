@@ -2,43 +2,42 @@ import { useState } from 'react'
 import type { FormEvent } from 'react'
 import { AUTH_SOCIAL_PROVIDERS, type SocialProvider } from '@/constants/socialProviders'
 import { ArrowRightIcon } from '@/components/atoms/ArrowRightIcon'
-import { AssignmentIcon } from '@/components/atoms/AssignmentIcon'
 import { Button } from '@/components/atoms/Button'
 import { Heading } from '@/components/atoms/Heading'
+import { LoginIcon } from '@/components/atoms/LoginIcon'
 import { Text } from '@/components/atoms/Text'
-import { TextLink } from '@/components/atoms/TextLink'
 import { CheckboxField } from '@/components/molecules/CheckboxField'
 import { FormField } from '@/components/molecules/FormField'
 import { AuthPrompt } from '@/components/molecules/AuthPrompt'
 import { SocialAuthSection } from '@/components/organisms/SocialAuthSection'
 
-export type LoginFormValues = {
-  identifier: string
+export type SignupFormValues = {
+  name: string
+  email: string
   password: string
   rememberMe: boolean
 }
 
-export type LoginFormProps = {
-  onSubmit: (values: LoginFormValues) => void | Promise<void>
+export type SignupFormProps = {
+  onSubmit: (values: SignupFormValues) => void | Promise<void>
   onSocialSelect?: (providerId: string) => void
   isSubmitting?: boolean
   errorMessage?: string
   socialProviders?: SocialProvider[]
-  forgotPasswordTo?: string
-  signupTo?: string
+  loginTo?: string
 }
 
-export function LoginForm({
+export function SignupForm({
   onSubmit,
   onSocialSelect,
   isSubmitting = false,
   errorMessage,
   socialProviders = AUTH_SOCIAL_PROVIDERS,
-  forgotPasswordTo = '/recuperar-senha',
-  signupTo = '/cadastro',
-}: LoginFormProps) {
-  const [values, setValues] = useState<LoginFormValues>({
-    identifier: '',
+  loginTo = '/login',
+}: SignupFormProps) {
+  const [values, setValues] = useState<SignupFormValues>({
+    name: '',
+    email: '',
     password: '',
     rememberMe: false,
   })
@@ -53,21 +52,30 @@ export function LoginForm({
       <div className="flex flex-col gap-6">
         <div className="flex flex-col gap-6">
           <Heading level={1} size="lg">
-            Login
+            Cadastro
           </Heading>
-          <Text size="subtitle">Boas-vindas! Faça seu login.</Text>
+          <Text size="subtitle">Olá! Preencha seus dados.</Text>
         </div>
 
         <div className="flex flex-col gap-4">
           <FormField
-            id="identifier"
-            label="Email ou usuário"
-            placeholder="usuario123"
-            autoComplete="username"
-            value={values.identifier}
-            onChange={(event) =>
-              setValues((prev) => ({ ...prev, identifier: event.target.value }))
-            }
+            id="name"
+            label="Nome"
+            placeholder="Nome completo"
+            autoComplete="name"
+            value={values.name}
+            onChange={(event) => setValues((prev) => ({ ...prev, name: event.target.value }))}
+            required
+          />
+
+          <FormField
+            id="email"
+            label="Email"
+            type="email"
+            placeholder="Digite seu email"
+            autoComplete="email"
+            value={values.email}
+            onChange={(event) => setValues((prev) => ({ ...prev, email: event.target.value }))}
             required
           />
 
@@ -76,7 +84,7 @@ export function LoginForm({
               id="password"
               label="Senha"
               type="password"
-              autoComplete="current-password"
+              autoComplete="new-password"
               value={values.password}
               onChange={(event) =>
                 setValues((prev) => ({ ...prev, password: event.target.value }))
@@ -84,19 +92,14 @@ export function LoginForm({
               required
             />
 
-            <div className="flex items-center justify-between">
-              <CheckboxField
-                id="remember-me"
-                label="Lembrar-me"
-                checked={values.rememberMe}
-                onChange={(event) =>
-                  setValues((prev) => ({ ...prev, rememberMe: event.target.checked }))
-                }
-              />
-              <TextLink to={forgotPasswordTo} tone="muted" size="small" underline>
-                Esqueci a senha
-              </TextLink>
-            </div>
+            <CheckboxField
+              id="remember-me"
+              label="Lembrar-me"
+              checked={values.rememberMe}
+              onChange={(event) =>
+                setValues((prev) => ({ ...prev, rememberMe: event.target.checked }))
+              }
+            />
           </div>
         </div>
       </div>
@@ -107,8 +110,14 @@ export function LoginForm({
         </Text>
       )}
 
-      <Button type="submit" variant="primary" fullWidth disabled={isSubmitting} iconRight={<ArrowRightIcon />}>
-        {isSubmitting ? 'Entrando...' : 'Login'}
+      <Button
+        type="submit"
+        variant="primary"
+        fullWidth
+        disabled={isSubmitting}
+        iconRight={<ArrowRightIcon />}
+      >
+        {isSubmitting ? 'Cadastrando...' : 'Cadastrar'}
       </Button>
 
       <SocialAuthSection
@@ -118,10 +127,11 @@ export function LoginForm({
       />
 
       <AuthPrompt
-        message="Ainda não tem conta?"
-        linkLabel="Crie seu cadastro!"
-        to={signupTo}
-        icon={<AssignmentIcon />}
+        message="Já tem conta?"
+        linkLabel="Faça seu login!"
+        to={loginTo}
+        layout="inline"
+        icon={<LoginIcon />}
       />
     </form>
   )

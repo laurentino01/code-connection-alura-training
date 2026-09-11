@@ -7,9 +7,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 `code-connect` is a pnpm monorepo (`pnpm-workspace.yaml`) with two independent apps under `apps/`:
 
 - **apps/api** — NestJS backend (TypeScript), unmodified `@nestjs/cli` starter.
-- **apps/web** — React 19 + Vite frontend (TypeScript), unmodified Vite React starter using Oxlint.
+- **apps/web** — React 19 + Vite frontend (TypeScript), Oxlint for linting. Has the login (`/login`) and signup (`/cadastro`) screens implemented with atomic design + Tailwind v4; see `plans/tela-de-login.md` and `plans/tela-de-cadastro.md`.
 
-Both apps are currently at scaffold stage (default starter code, no custom domain logic yet).
+`apps/api` is still at scaffold stage (default starter code, no custom domain logic yet).
 
 ## Commands
 
@@ -52,9 +52,11 @@ pnpm --filter web dev      # dev server
 pnpm --filter web build     # tsc -b && vite build
 pnpm --filter web lint      # oxlint
 pnpm --filter web preview   # preview production build
+pnpm --filter web test      # vitest run
+pnpm --filter web test:watch # vitest watch mode
 ```
 
-No test runner is configured for `apps/web` yet.
+Test runner is Vitest + React Testing Library (jsdom). Unit test files live alongside source as `*.test.tsx`/`*.test.ts` (e.g. `Button.test.tsx` next to `Button.tsx`); config lives in `apps/web/vite.config.ts` (`test` key) and `apps/web/src/test/setup.ts`.
 
 ## Architecture notes
 
@@ -65,10 +67,11 @@ No test runner is configured for `apps/web` yet.
 
 ## Frontend conventions (apps/web)
 
-- **Atomic design**: structure components by atoms → molecules → organisms → templates → pages.
-- **Tailwind CSS** is the styling approach (not yet installed in the scaffold — set up `tailwindcss` + `@tailwindcss/vite` before/while adding the first styled component).
-- Components are built to be **reused** — favor generic, prop-driven components over one-off, page-specific ones.
-- Every component must have **fundamental tests** (rendering, key interactions/props) alongside it.
+- **Atomic design**: structure components by atoms → molecules → organisms → templates → pages, under `apps/web/src/components/{atoms,molecules,organisms,templates,pages}`. Each component folder holds `<Name>.tsx`, `<Name>.test.tsx`, and an `index.ts` barrel.
+- **Tailwind CSS v4** via `@tailwindcss/vite` — CSS-first config, no `tailwind.config.*`. Design tokens (colors, font, type scale, radii) live in `apps/web/src/index.css` under `@theme`.
+- Components are built to be **reused** — favor generic, prop-driven components over one-off, page-specific ones. The `atoms/`/`molecules/`/`organisms/` shared between the login and signup screens are the reference example.
+- Every component must have **fundamental tests** (rendering, key interactions/props) alongside it, using Vitest + Testing Library.
+- No form library — forms use plain `useState` + native `required` validation (see `LoginForm`/`SignupForm`).
 
 ## Backend conventions (apps/api)
 
@@ -80,4 +83,4 @@ No test runner is configured for `apps/web` yet.
 
 ## Plans
 
-- Implementation plans are kept as files in a `plans/` folder at the repo root (not yet created — create it when the first plan is written).
+- Implementation plans are kept as files in a `plans/` folder at the repo root (e.g. `plans/tela-de-login.md`, `plans/tela-de-cadastro.md`).

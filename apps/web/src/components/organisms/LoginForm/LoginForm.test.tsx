@@ -10,7 +10,7 @@ describe('LoginForm', () => {
     expect(screen.getByText('Boas-vindas! Faça seu login.')).toBeInTheDocument()
     expect(screen.getByLabelText('Email ou usuário')).toBeInTheDocument()
     expect(screen.getByLabelText('Senha')).toBeInTheDocument()
-    expect(screen.getByLabelText('Lembre-me')).toBeInTheDocument()
+    expect(screen.getByLabelText('Lembrar-me')).toBeInTheDocument()
     expect(screen.getByRole('link', { name: 'Esqueci a senha' })).toBeInTheDocument()
     expect(screen.getByText('ou entre com outras contas')).toBeInTheDocument()
     expect(screen.getByText('Ainda não tem conta?')).toBeInTheDocument()
@@ -23,7 +23,7 @@ describe('LoginForm', () => {
 
     await user.type(screen.getByLabelText('Email ou usuário'), 'usuario123')
     await user.type(screen.getByLabelText('Senha'), 'segredo')
-    await user.click(screen.getByLabelText('Lembre-me'))
+    await user.click(screen.getByLabelText('Lembrar-me'))
     await user.click(screen.getByRole('button', { name: 'Login' }))
 
     expect(handleSubmit).toHaveBeenCalledTimes(1)

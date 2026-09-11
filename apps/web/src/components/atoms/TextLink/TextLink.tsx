@@ -3,41 +3,40 @@ import { Link } from 'react-router'
 import { cn } from '@/lib/cn'
 
 export type TextLinkTone = 'muted' | 'brand'
-export type TextLinkSize = 'xs' | 'sm'
+export type TextLinkSize = 'small' | 'body'
 
 export type TextLinkProps = {
   to: string
   external?: boolean
   tone?: TextLinkTone
   size?: TextLinkSize
+  underline?: boolean
   iconRight?: ReactNode
   children: ReactNode
   className?: string
 }
 
 const toneClasses: Record<TextLinkTone, string> = {
-  muted: 'text-ink-muted hover:text-ink-soft',
+  muted: 'text-ink',
   brand: 'text-brand hover:text-brand-hover',
 }
-
-const sizeClasses: Record<TextLinkSize, string> = {
-  xs: 'text-xs',
-  sm: 'text-sm',
-}
+const sizeClasses: Record<TextLinkSize, string> = { small: 'text-small', body: 'text-body' }
 
 export function TextLink({
   to,
   external = false,
   tone = 'muted',
-  size = 'sm',
+  size = 'small',
+  underline = false,
   iconRight,
   children,
   className,
 }: TextLinkProps) {
   const classes = cn(
-    'inline-flex items-center gap-1 font-medium',
+    'inline-flex items-center gap-3 font-medium',
     toneClasses[tone],
     sizeClasses[size],
+    underline && 'underline',
     className,
   )
 
@@ -49,7 +48,6 @@ export function TextLink({
       </a>
     )
   }
-
   return (
     <Link to={to} className={classes}>
       {children}

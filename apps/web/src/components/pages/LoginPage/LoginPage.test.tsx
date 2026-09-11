@@ -9,7 +9,7 @@ describe('LoginPage', () => {
     expect(screen.getByRole('heading', { name: 'Login' })).toBeInTheDocument()
     expect(screen.getByRole('img', { name: /computador/i })).toHaveAttribute(
       'src',
-      '/main-banner.png',
+      '/login-banner.png',
     )
   })
 

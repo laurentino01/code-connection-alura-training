@@ -1,26 +1,39 @@
 @import 'tailwindcss';
 
 @theme {
-  --color-canvas: #0a0f0c; /* fundo quase preto, com fundo esverdeado */
-  --color-canvas-tint: #0f1a14; /* parada do gradiente radial */
-  --color-card: #2e2e2e;
-  --color-field: #3a3a3a; /* inputs e tiles sociais */
-  --color-line: #454545;
+  --color-canvas: #00090e; /* Grafite */
+  --color-card: #171d1f; /* Cinza Escuro */
+  --color-card-border: #00090e;
+  --color-field: #888888; /* Cinza médio — fundo do input */
+  --color-field-ink: #171d1f; /* texto dentro do input */
+  --color-line: #888888; /* divisores e borda do checkbox */
 
-  --color-ink: #ffffff;
-  --color-ink-soft: #c9c9c9;
-  --color-ink-muted: #8b8b8b;
+  --color-ink: #e1e1e1; /* Offwhite */
+  --color-ink-muted: #888888; /* Cinza médio — label do checkbox */
 
-  --color-brand: #2fa84f;
-  --color-brand-hover: #268c42;
-  --color-brand-ink: #0a0f0c; /* texto escuro sobre o botão verde */
+  --color-brand: #81fe88; /* Verde destaque */
+  --color-brand-hover: #6ee676; /* hover não definido no Figma — escurecido 8% */
+  --color-brand-ink: #132e35; /* Verde petróleo */
 
-  --color-glyph: #1c3a2a; /* elos do fundo, baixo contraste */
+  --color-glyph: #171d1f; /* elos do fundo */
 
-  --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif;
-  --radius-card: 16px;
-  --radius-field: 6px;
-  --shadow-card: 0 24px 60px -12px rgb(0 0 0 / 0.55);
+  --font-sans: 'Prompt', ui-sans-serif, system-ui, sans-serif;
+
+  /* escala tipográfica do Figma, todas line-height 1.5 */
+  --text-label: 12.5px;
+  --text-label--line-height: 1.5;
+  --text-small: 15px;
+  --text-small--line-height: 1.5;
+  --text-body: 18px;
+  --text-body--line-height: 1.5;
+  --text-subtitle: 22px;
+  --text-subtitle--line-height: 1.5;
+  --text-heading: 31px;
+  --text-heading--line-height: 1.5;
+
+  --radius-card: 32px;
+  --radius-field: 4px;
+  --radius-button: 8px;
 }
 
 @layer base {

@@ -12,7 +12,7 @@ export function CheckboxField({ id, label, className, ...rest }: CheckboxFieldPr
   return (
     <div className={cn('flex items-center gap-2', className)}>
       <Checkbox id={id} {...rest} />
-      <Label htmlFor={id} className="cursor-pointer">
+      <Label htmlFor={id} size="small" tone="muted" className="cursor-pointer whitespace-nowrap">
         {label}
       </Label>
     </div>

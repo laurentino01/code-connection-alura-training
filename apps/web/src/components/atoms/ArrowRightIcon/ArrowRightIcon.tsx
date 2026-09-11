@@ -4,22 +4,17 @@ export type ArrowRightIconProps = {
   className?: string
 }
 
+/** Material Icons "arrow_forward" glyph, used on the primary auth buttons. */
 export function ArrowRightIcon({ className }: ArrowRightIconProps) {
   return (
     <svg
-      viewBox="0 0 16 16"
-      fill="none"
+      viewBox="0 0 24 24"
+      fill="currentColor"
       aria-hidden="true"
       focusable="false"
-      className={cn('h-4 w-4', className)}
+      className={cn('h-6 w-6', className)}
     >
-      <path
-        d="M3.333 8h9.334M8.667 3.667 13 8l-4.333 4.333"
-        stroke="currentColor"
-        strokeWidth={1.5}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
+      <path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z" />
     </svg>
   )
 }
