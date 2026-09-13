@@ -22,6 +22,8 @@ export function SocialAuthButtons({
           key={provider.id}
           iconSrc={provider.iconSrc}
           label={provider.label}
+          iconWidth={provider.iconWidth}
+          iconHeight={provider.iconHeight}
           disabled={disabled}
           onClick={() => onSelect?.(provider.id)}
         />

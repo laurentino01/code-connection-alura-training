@@ -2,6 +2,7 @@ import { useState } from 'react'
 import type { FormEvent } from 'react'
 import { AUTH_SOCIAL_PROVIDERS, type SocialProvider } from '@/constants/socialProviders'
 import { ArrowRightIcon } from '@/components/atoms/ArrowRightIcon'
+import { AssignmentIcon } from '@/components/atoms/AssignmentIcon'
 import { Button } from '@/components/atoms/Button'
 import { Heading } from '@/components/atoms/Heading'
 import { Text } from '@/components/atoms/Text'
@@ -48,50 +49,60 @@ export function LoginForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-      <div>
-        <Heading level={1} size="lg">
-          Login
-        </Heading>
-        <Text tone="muted">Boas-vindas! Faça seu login.</Text>
-      </div>
+    <form onSubmit={handleSubmit} className="flex flex-col gap-8">
+      <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-6">
+          <Heading level={1} size="lg">
+            Login
+          </Heading>
+          <Text size="subtitle">Boas-vindas! Faça seu login.</Text>
+        </div>
 
-      <FormField
-        id="identifier"
-        label="Email ou usuário"
-        placeholder="usuario123"
-        autoComplete="username"
-        value={values.identifier}
-        onChange={(event) => setValues((prev) => ({ ...prev, identifier: event.target.value }))}
-        required
-      />
+        <div className="flex flex-col gap-4">
+          <FormField
+            id="identifier"
+            label="Email ou usuário"
+            placeholder="usuario123"
+            autoComplete="username"
+            value={values.identifier}
+            onChange={(event) =>
+              setValues((prev) => ({ ...prev, identifier: event.target.value }))
+            }
+            required
+          />
 
-      <FormField
-        id="password"
-        label="Senha"
-        type="password"
-        autoComplete="current-password"
-        value={values.password}
-        onChange={(event) => setValues((prev) => ({ ...prev, password: event.target.value }))}
-        required
-      />
+          <div className="flex flex-col gap-2">
+            <FormField
+              id="password"
+              label="Senha"
+              type="password"
+              autoComplete="current-password"
+              value={values.password}
+              onChange={(event) =>
+                setValues((prev) => ({ ...prev, password: event.target.value }))
+              }
+              required
+            />
 
-      <div className="flex items-center justify-between">
-        <CheckboxField
-          id="remember-me"
-          label="Lembre-me"
-          checked={values.rememberMe}
-          onChange={(event) =>
-            setValues((prev) => ({ ...prev, rememberMe: event.target.checked }))
-          }
-        />
-        <TextLink to={forgotPasswordTo} tone="muted" size="xs">
-          Esqueci a senha
-        </TextLink>
+            <div className="flex items-center justify-between">
+              <CheckboxField
+                id="remember-me"
+                label="Lembrar-me"
+                checked={values.rememberMe}
+                onChange={(event) =>
+                  setValues((prev) => ({ ...prev, rememberMe: event.target.checked }))
+                }
+              />
+              <TextLink to={forgotPasswordTo} tone="muted" size="small" underline>
+                Esqueci a senha
+              </TextLink>
+            </div>
+          </div>
+        </div>
       </div>
 
       {errorMessage && (
-        <Text as="span" size="xs" className="text-red-400">
+        <Text as="span" size="label" className="text-red-400">
           {errorMessage}
         </Text>
       )}
@@ -106,7 +117,12 @@ export function LoginForm({
         onSelect={onSocialSelect}
       />
 
-      <AuthPrompt message="Ainda não tem conta?" linkLabel="Crie seu cadastro!" to={signupTo} />
+      <AuthPrompt
+        message="Ainda não tem conta?"
+        linkLabel="Crie seu cadastro!"
+        to={signupTo}
+        icon={<AssignmentIcon />}
+      />
     </form>
   )
 }

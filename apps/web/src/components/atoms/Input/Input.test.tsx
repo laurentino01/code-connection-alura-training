@@ -31,6 +31,6 @@ describe('Input', () => {
     render(<Input aria-label="email" name="email" autoComplete="username" />)
     const input = screen.getByLabelText('email')
     expect(input).toHaveAttribute('name', 'email')
-    expect(input).toHaveAttribute('autoComplete', 'username')
+    expect(input).toHaveAttribute('autocomplete', 'username')
   })
 })

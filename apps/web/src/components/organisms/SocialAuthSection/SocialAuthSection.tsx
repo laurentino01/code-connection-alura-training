@@ -17,7 +17,7 @@ export function SocialAuthSection({
   className,
 }: SocialAuthSectionProps) {
   return (
-    <div className={cn('flex flex-col gap-4', className)}>
+    <div className={cn('flex flex-col gap-2', className)}>
       <LabeledDivider label={label} />
       <SocialAuthButtons providers={providers} onSelect={onSelect} />
     </div>

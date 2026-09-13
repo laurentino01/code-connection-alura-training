@@ -1,26 +1,50 @@
 @import 'tailwindcss';
 
 @theme {
-  --color-canvas: #0a0f0c; /* fundo quase preto, com fundo esverdeado */
-  --color-canvas-tint: #0f1a14; /* parada do gradiente radial */
-  --color-card: #2e2e2e;
-  --color-field: #3a3a3a; /* inputs e tiles sociais */
-  --color-line: #454545;
+  /* paleta base do projeto — primitivos, não usar direto nas classes */
+  --color-neutral-950: #00090e; /* Grafite */
+  --color-neutral-900: #171d1f; /* Cinza Escuro */
+  --color-neutral-500: #888888; /* Cinza médio */
+  --color-neutral-100: #e1e1e1; /* Offwhite */
+  --color-green-950: #132e35; /* Verde petróleo */
+  --color-green-400: #81fe88; /* Verde destaque */
+  --color-green-500: #6ee676; /* hover não definido no Figma — escurecido 8% */
 
-  --color-ink: #ffffff;
-  --color-ink-soft: #c9c9c9;
-  --color-ink-muted: #8b8b8b;
+  /* tokens semânticos — usados nas classes Tailwind (bg-canvas, text-ink, ...) */
+  --color-canvas: var(--color-neutral-950);
+  --color-card: var(--color-neutral-900);
+  --color-card-border: var(--color-neutral-950);
+  --color-field: var(--color-neutral-500); /* fundo do input */
+  --color-field-ink: var(--color-neutral-900); /* texto dentro do input */
+  --color-line: var(--color-neutral-500); /* divisores e borda do checkbox */
 
-  --color-brand: #2fa84f;
-  --color-brand-hover: #268c42;
-  --color-brand-ink: #0a0f0c; /* texto escuro sobre o botão verde */
+  --color-ink: var(--color-neutral-100);
+  --color-ink-muted: var(--color-neutral-500); /* label do checkbox */
 
-  --color-glyph: #1c3a2a; /* elos do fundo, baixo contraste */
+  --color-brand: var(--color-green-400);
+  --color-brand-hover: var(--color-green-500);
+  --color-brand-ink: var(--color-green-950);
 
-  --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif;
-  --radius-card: 16px;
-  --radius-field: 6px;
-  --shadow-card: 0 24px 60px -12px rgb(0 0 0 / 0.55);
+  --color-glyph: var(--color-neutral-900); /* elos do fundo */
+
+  --font-sans: 'Prompt', ui-sans-serif, system-ui, sans-serif;
+
+  /* escala tipográfica do Figma mapeada para os tamanhos padrão do Tailwind
+     (mais próximos), todas com line-height 1.5 */
+  --text-label: var(--text-xs);
+  --text-label--line-height: 1.5;
+  --text-small: var(--text-sm);
+  --text-small--line-height: 1.5;
+  --text-body: var(--text-lg);
+  --text-body--line-height: 1.5;
+  --text-subtitle: var(--text-2xl);
+  --text-subtitle--line-height: 1.5;
+  --text-heading: var(--text-3xl);
+  --text-heading--line-height: 1.5;
+
+  --radius-card: 32px;
+  --radius-field: 4px;
+  --radius-button: 8px;
 }
 
 @layer base {

@@ -1,8 +1,8 @@
 import type { ComponentPropsWithoutRef } from 'react'
 import { cn } from '@/lib/cn'
 
-export type TextTone = 'default' | 'soft' | 'muted' | 'brand'
-export type TextSize = 'xs' | 'sm' | 'base'
+export type TextTone = 'default' | 'muted' | 'brand'
+export type TextSize = 'label' | 'small' | 'body' | 'subtitle'
 
 export type TextProps = ComponentPropsWithoutRef<'p'> &
   ComponentPropsWithoutRef<'span'> & {
@@ -13,21 +13,21 @@ export type TextProps = ComponentPropsWithoutRef<'p'> &
 
 const toneClasses: Record<TextTone, string> = {
   default: 'text-ink',
-  soft: 'text-ink-soft',
   muted: 'text-ink-muted',
   brand: 'text-brand',
 }
 
 const sizeClasses: Record<TextSize, string> = {
-  xs: 'text-xs',
-  sm: 'text-sm',
-  base: 'text-base',
+  label: 'text-label',
+  small: 'text-small',
+  body: 'text-body',
+  subtitle: 'text-subtitle',
 }
 
 export function Text({
   as = 'p',
   tone = 'default',
-  size = 'sm',
+  size = 'small',
   children,
   className,
   ...rest

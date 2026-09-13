@@ -1,5 +1,6 @@
 import { screen } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
+import { axe } from '@/test/a11y'
 import { renderWithRouter } from '@/test/utils'
 import { LoginForm } from './LoginForm'
 
@@ -10,7 +11,7 @@ describe('LoginForm', () => {
     expect(screen.getByText('Boas-vindas! Faça seu login.')).toBeInTheDocument()
     expect(screen.getByLabelText('Email ou usuário')).toBeInTheDocument()
     expect(screen.getByLabelText('Senha')).toBeInTheDocument()
-    expect(screen.getByLabelText('Lembre-me')).toBeInTheDocument()
+    expect(screen.getByLabelText('Lembrar-me')).toBeInTheDocument()
     expect(screen.getByRole('link', { name: 'Esqueci a senha' })).toBeInTheDocument()
     expect(screen.getByText('ou entre com outras contas')).toBeInTheDocument()
     expect(screen.getByText('Ainda não tem conta?')).toBeInTheDocument()
@@ -23,7 +24,7 @@ describe('LoginForm', () => {
 
     await user.type(screen.getByLabelText('Email ou usuário'), 'usuario123')
     await user.type(screen.getByLabelText('Senha'), 'segredo')
-    await user.click(screen.getByLabelText('Lembre-me'))
+    await user.click(screen.getByLabelText('Lembrar-me'))
     await user.click(screen.getByRole('button', { name: 'Login' }))
 
     expect(handleSubmit).toHaveBeenCalledTimes(1)
@@ -42,6 +43,13 @@ describe('LoginForm', () => {
   it('renders the error message when provided', () => {
     renderWithRouter(<LoginForm onSubmit={vi.fn()} errorMessage="Credenciais inválidas" />)
     expect(screen.getByText('Credenciais inválidas')).toBeInTheDocument()
+  })
+
+  it('has no WCAG 2.x Level A/AA violations when showing an error message', async () => {
+    const { container } = renderWithRouter(
+      <LoginForm onSubmit={vi.fn()} errorMessage="Credenciais inválidas" />,
+    )
+    expect(await axe(container)).toHaveNoViolations()
   })
 
   it('points the forgot-password and signup links to the given routes', () => {

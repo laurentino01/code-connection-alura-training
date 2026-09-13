@@ -16,7 +16,13 @@ export function LoginPage() {
 
   return (
     <AuthLayout>
-      <AuthCard image={{ src: '/main-banner.png', alt: 'Profissional de tecnologia sorrindo em frente ao computador' }}>
+      <AuthCard
+        image={{
+          src: '/login-banner.png',
+          webpSrc: '/login-banner.webp',
+          alt: 'Profissional de tecnologia sorrindo em frente ao computador',
+        }}
+      >
         <LoginForm onSubmit={handleLogin} isSubmitting={isSubmitting} />
       </AuthCard>
     </AuthLayout>
