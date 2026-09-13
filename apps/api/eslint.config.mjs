@@ -32,4 +32,15 @@ export default tseslint.config(
       "prettier/prettier": ["error", { endOfLine: "auto" }],
     },
   },
+  {
+    // Jest/Supertest APIs (expect.any(), response.body, mock helpers) are
+    // untyped `any` by design — relax the type-aware unsafe-* rules here
+    // rather than sprinkling casts through every spec file.
+    files: ['**/*.spec.ts', '**/*.e2e-spec.ts'],
+    rules: {
+      '@typescript-eslint/no-unsafe-assignment': 'off',
+      '@typescript-eslint/no-unsafe-member-access': 'off',
+      '@typescript-eslint/no-unsafe-return': 'off',
+    },
+  },
 );

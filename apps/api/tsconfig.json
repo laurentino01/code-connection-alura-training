@@ -13,11 +13,17 @@
     "target": "ES2023",
     "sourceMap": true,
     "outDir": "./dist",
-    "baseUrl": "./",
     "incremental": true,
     "skipLibCheck": true,
-    "strictNullChecks": true,
     "forceConsistentCasingInFileNames": true,
+    // TypeScript 6 no longer includes every @types/* package by default, so
+    // list the globals the app and the Jest specs rely on explicitly.
+    "types": ["node", "jest"],
+    // Explicit strictness so TS 5 (CLI) and TS 6 (editor) agree. DTOs and
+    // entities are populated by class-transformer / the ValidationPipe, never
+    // constructed by hand, so definite-assignment checks don't apply to them.
+    "strict": true,
+    "strictPropertyInitialization": false,
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "noFallthroughCasesInSwitch": false
