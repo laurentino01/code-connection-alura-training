@@ -17,6 +17,30 @@ describe('AuthCard', () => {
     expect(screen.getByAltText('Banner')).toHaveAttribute('src', '/login-banner.png')
   })
 
+  it('serves a webp source while keeping the original as fallback', () => {
+    const { container } = render(
+      <AuthCard image={{ src: '/login-banner.png', webpSrc: '/login-banner.webp', alt: 'Banner' }}>
+        children
+      </AuthCard>,
+    )
+    const source = container.querySelector('source')
+    expect(source).toHaveAttribute('srcset', '/login-banner.webp')
+    expect(source).toHaveAttribute('type', 'image/webp')
+    expect(screen.getByAltText('Banner')).toHaveAttribute('src', '/login-banner.png')
+  })
+
+  it('omits the webp source when none is given', () => {
+    const { container } = render(
+      <AuthCard image={{ src: '/login-banner.png', alt: 'Banner' }}>children</AuthCard>,
+    )
+    expect(container.querySelector('source')).not.toBeInTheDocument()
+  })
+
+  it('marks the banner as a high priority request', () => {
+    render(<AuthCard image={{ src: '/login-banner.png', alt: 'Banner' }}>children</AuthCard>)
+    expect(screen.getByAltText('Banner')).toHaveAttribute('fetchpriority', 'high')
+  })
+
   it('reverses the layout when imagePosition is right', () => {
     const { container } = render(
       <AuthCard image={{ src: '/login-banner.png' }} imagePosition="right">

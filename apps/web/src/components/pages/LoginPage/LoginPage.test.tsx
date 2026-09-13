@@ -1,5 +1,6 @@
 import { screen, waitFor } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
+import { axe } from '@/test/a11y'
 import { renderWithRouter } from '@/test/utils'
 import { LoginPage } from './LoginPage'
 
@@ -13,6 +14,11 @@ describe('LoginPage', () => {
     )
   })
 
+  it('has no WCAG 2.x Level A/AA violations', async () => {
+    const { container } = renderWithRouter(<LoginPage />)
+    expect(await axe(container)).toHaveNoViolations()
+  })
+
   it('shows the loading state while submitting and returns to idle afterwards', async () => {
     const infoSpy = vi.spyOn(console, 'info').mockImplementation(() => {})
     const { user } = renderWithRouter(<LoginPage />)
@@ -21,7 +27,9 @@ describe('LoginPage', () => {
     await user.type(screen.getByLabelText('Senha'), 'segredo')
     await user.click(screen.getByRole('button', { name: 'Login' }))
 
-    expect(screen.getByRole('button', { name: 'Entrando...' })).toBeDisabled()
+    const submittingButton = screen.getByRole('button', { name: 'Entrando...' })
+    expect(submittingButton).toBeDisabled()
+    expect(await axe(submittingButton.closest('form') ?? document.body)).toHaveNoViolations()
 
     await waitFor(() => expect(screen.getByRole('button', { name: 'Login' })).toBeEnabled())
     expect(infoSpy).toHaveBeenCalledWith(

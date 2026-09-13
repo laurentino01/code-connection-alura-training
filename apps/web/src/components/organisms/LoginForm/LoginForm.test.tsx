@@ -1,5 +1,6 @@
 import { screen } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
+import { axe } from '@/test/a11y'
 import { renderWithRouter } from '@/test/utils'
 import { LoginForm } from './LoginForm'
 
@@ -42,6 +43,13 @@ describe('LoginForm', () => {
   it('renders the error message when provided', () => {
     renderWithRouter(<LoginForm onSubmit={vi.fn()} errorMessage="Credenciais inválidas" />)
     expect(screen.getByText('Credenciais inválidas')).toBeInTheDocument()
+  })
+
+  it('has no WCAG 2.x Level A/AA violations when showing an error message', async () => {
+    const { container } = renderWithRouter(
+      <LoginForm onSubmit={vi.fn()} errorMessage="Credenciais inválidas" />,
+    )
+    expect(await axe(container)).toHaveNoViolations()
   })
 
   it('points the forgot-password and signup links to the given routes', () => {

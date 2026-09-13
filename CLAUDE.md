@@ -69,6 +69,12 @@ Test runner is Vitest + React Testing Library (jsdom). Unit test files live alon
 
 - **Atomic design**: structure components by atoms → molecules → organisms → templates → pages, under `apps/web/src/components/{atoms,molecules,organisms,templates,pages}`. Each component folder holds `<Name>.tsx`, `<Name>.test.tsx`, and an `index.ts` barrel.
 - **Tailwind CSS v4** via `@tailwindcss/vite` — CSS-first config, no `tailwind.config.*`. Design tokens (colors, font, type scale, radii) live in `apps/web/src/index.css` under `@theme`.
+- **No raw hex or px font sizes directly in Tailwind classes/components.** Always go through a token in `@theme`; components consume semantic classes (`bg-canvas`, `text-brand`, `text-body`, ...), never `bg-[#...]` or `text-[18px]`.
+  - **Colors** — two-tier palette in `apps/web/src/index.css`:
+    - Primitives (raw hex, not used directly in components): `--color-neutral-950` (`#00090e`), `--color-neutral-900` (`#171d1f`), `--color-neutral-500` (`#888888`), `--color-neutral-100` (`#e1e1e1`), `--color-green-950` (`#132e35`), `--color-green-400` (`#81fe88`), `--color-green-500` (`#6ee676`).
+    - Semantic tokens (used in classes, each aliases a primitive via `var()`): `--color-canvas`, `--color-card`, `--color-card-border`, `--color-field`, `--color-field-ink`, `--color-line`, `--color-ink`, `--color-ink-muted`, `--color-brand`, `--color-brand-hover`, `--color-brand-ink`, `--color-glyph`.
+    - Adding a new color: add/reuse a primitive first, then add a semantic token that references it — never inline a new hex value directly on a semantic token or in a component.
+  - **Font sizes** — semantic tokens (`--text-label`, `--text-small`, `--text-body`, `--text-subtitle`, `--text-heading`) must each alias Tailwind's built-in scale (`var(--text-xs)`, `var(--text-sm)`, `var(--text-lg)`, `var(--text-2xl)`, `var(--text-3xl)`, ...) picking the closest default step to the design spec — never a custom pixel/rem value. All carry a `--text-*--line-height: 1.5` companion per the Figma spec.
 - Components are built to be **reused** — favor generic, prop-driven components over one-off, page-specific ones. The `atoms/`/`molecules/`/`organisms/` shared between the login and signup screens are the reference example.
 - Every component must have **fundamental tests** (rendering, key interactions/props) alongside it, using Vitest + Testing Library.
 - No form library — forms use plain `useState` + native `required` validation (see `LoginForm`/`SignupForm`).

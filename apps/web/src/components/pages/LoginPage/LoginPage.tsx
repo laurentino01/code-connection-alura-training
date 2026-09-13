@@ -19,6 +19,7 @@ export function LoginPage() {
       <AuthCard
         image={{
           src: '/login-banner.png',
+          webpSrc: '/login-banner.webp',
           alt: 'Profissional de tecnologia sorrindo em frente ao computador',
         }}
       >

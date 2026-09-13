@@ -11,9 +11,9 @@ export function AuthLayout({ children }: AuthLayoutProps) {
       <ChainGlyph className="pointer-events-none absolute -left-10 -top-2 h-[420px] w-[350px] opacity-30" />
       <ChainGlyph className="pointer-events-none absolute -right-16 bottom-0 h-[420px] w-[350px] opacity-30" />
 
-      <div className="relative z-10 flex min-h-screen items-center justify-center p-4">
+      <main className="relative z-10 flex min-h-screen items-center justify-center p-4">
         {children}
-      </div>
+      </main>
     </div>
   )
 }

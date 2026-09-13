@@ -10,6 +10,7 @@ export function Checkbox({ className, ...rest }: CheckboxProps) {
       className={cn(
         'size-6 shrink-0 appearance-none rounded-field border-2 border-line bg-transparent bg-center bg-no-repeat',
         'checked:[background-image:url(/check.svg)]',
+        'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand',
         className,
       )}
       {...rest}

@@ -34,6 +34,7 @@ export function TextLink({
 }: TextLinkProps) {
   const classes = cn(
     'inline-flex items-center gap-3 font-medium',
+    'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand',
     toneClasses[tone],
     sizeClasses[size],
     underline && 'underline',

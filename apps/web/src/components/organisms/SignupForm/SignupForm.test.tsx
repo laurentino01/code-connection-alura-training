@@ -1,5 +1,6 @@
 import { screen } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
+import { axe } from '@/test/a11y'
 import { renderWithRouter } from '@/test/utils'
 import { SignupForm } from './SignupForm'
 
@@ -49,6 +50,13 @@ describe('SignupForm', () => {
   it('renders the error message when provided', () => {
     renderWithRouter(<SignupForm onSubmit={vi.fn()} errorMessage="Email já cadastrado" />)
     expect(screen.getByText('Email já cadastrado')).toBeInTheDocument()
+  })
+
+  it('has no WCAG 2.x Level A/AA violations when showing an error message', async () => {
+    const { container } = renderWithRouter(
+      <SignupForm onSubmit={vi.fn()} errorMessage="Email já cadastrado" />,
+    )
+    expect(await axe(container)).toHaveNoViolations()
   })
 
   it('points the login link to the given route', () => {

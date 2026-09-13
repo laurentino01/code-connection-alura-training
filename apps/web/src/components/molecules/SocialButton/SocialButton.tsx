@@ -30,6 +30,7 @@ export function SocialButton({
       disabled={disabled}
       className={cn(
         'flex flex-col items-center gap-1 disabled:cursor-not-allowed disabled:opacity-60',
+        'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand',
         className,
       )}
     >
